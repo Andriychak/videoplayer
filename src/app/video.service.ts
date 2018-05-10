@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { Video } from './video';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -13,10 +13,10 @@ const httpOptions = {
 @Injectable()
 export class VideoService {
 
-  private getUrl = "/api/videos";
-  private postUrl = "/api/video";
-  private putUrl = "/api/video/";
-  private deleteUrl = "/api/video/";
+  private getUrl = '/api/videos';
+  private postUrl = '/api/video';
+  private putUrl = '/api/video/';
+  private deleteUrl = '/api/video/';
 
   constructor(private http: HttpClient) { }
 
