@@ -25,7 +25,6 @@ export class VideoCenterComponent implements OnInit {
   onSelectVideo(video: any) {
     this.selectedVideo = video;
     this.hideNewVideoForm = true;
-    console.log(this.selectedVideo);
   }
 
   onSubmitNewVideo(video: Video) {

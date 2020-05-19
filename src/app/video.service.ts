@@ -1,38 +1,40 @@
-import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
 import { Video } from './video';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class VideoService {
 
-  private getUrl = '/api/videos';
-  private postUrl = '/api/video';
-  private putUrl = '/api/video/';
-  private deleteUrl = '/api/video/';
+  private _getUrl = "/api/videos";
+  private _postUrl = "/api/video";
+  private _putUrl = "/api/video/";
+  private _deleteUrl = "/api/video/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: Http) { }
 
-  getVideos(): Observable<Video[]> {
-    return this.http.get<Video[]>(this.getUrl);
+  getVideos() {
+    return this._http.get(this._getUrl)
+      .map((response: Response) => response.json());
   }
 
-  addVideo(video: Video): Observable<Video> {
-    return this.http.post<Video>(this.postUrl, video, httpOptions);
+  addVideo(video: Video) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this._postUrl, JSON.stringify(video), options)
+      .map((response: Response) => response.json());
   }
 
-  updateVideo(video: Video): Observable<Video> {
-    return this.http.put<Video>(this.putUrl + video._id, video, httpOptions);
+  updateVideo(video: Video) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.put(this._putUrl + video._id, JSON.stringify(video), options)
+      .map((response: Response) => response.json());
   }
 
-  deleteVideo(video: Video): Observable<Video> {
-    return this.http.delete<Video>(this.deleteUrl + video._id, httpOptions);
+  deleteVideo(video: Video) {
+    return this._http.delete(this._deleteUrl + video._id)
+      .map((response: Response) => response.json());
   }
+
 }

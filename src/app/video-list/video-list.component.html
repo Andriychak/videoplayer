@@ -1,5 +1,13 @@
-<ul class="nav nav-pills nav-stacked">
-  <li (click)="onSelect(video)" *ngFor="let video of videos">
-    <a>{{video.title}}</a>
-  </li>
-</ul>
+<div class="list-group">
+    <div *ngIf="selectedVideo; then selected else loaded"></div>
+    <ng-template #selected>
+        <button class="list-group-item list-group-item-action" [class.active]="video._id === selectedVideo._id" (click)="onSelect(video)" *ngFor="let video of videos">
+            {{video.title}}
+        </button>
+    </ng-template>
+    <ng-template #loaded>
+        <button class="list-group-item list-group-item-action" (click)="onSelect(video)" *ngFor="let video of videos">
+            {{video.title}}
+        </button>
+    </ng-template>
+</div>

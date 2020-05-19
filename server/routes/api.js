@@ -5,11 +5,18 @@ const Video = require('../models/video');
 
 const db = 'mongodb://anvol:panvol@ds219879.mlab.com:19879/videoplayer';
 mongoose.Promise = global.Promise;
-mongoose.connect(db, (err) => {
-  if (err) {
-    console.error("Error " + err);
+mongoose.connect(
+  db, 
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  }, 
+  (err) => {
+    if (err) {
+      console.error("Error " + err);
+    }
   }
-});
+);
 
 router.get('/videos', function (req, res) {
   console.log('Get request for all videos');
